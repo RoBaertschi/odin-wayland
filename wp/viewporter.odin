@@ -150,7 +150,7 @@ viewport_set_source :: proc "contextless" (viewport_: ^viewport, x_: fixed_t, y_
 
 	The crop and scale state is double-buffered, see wl_surface.commit. */
 VIEWPORT_SET_DESTINATION :: 2
-viewport_set_destination :: proc "contextless" (viewport_: ^viewport, width_: int, height_: int) {
+viewport_set_destination :: proc "contextless" (viewport_: ^viewport, width_: i32, height_: i32) {
 	proxy_marshal_flags(cast(^proxy)viewport_, VIEWPORT_SET_DESTINATION, nil, proxy_get_version(cast(^proxy)viewport_), 0, width_, height_)
 }
 

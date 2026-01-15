@@ -92,7 +92,7 @@ presentation_listener :: struct {
         irrelevant. Precision of one millisecond or better is
         recommended. Clients must be able to query the current clock
         value directly, not by asking the compositor. */
-	clock_id : proc "c" (data: rawptr, presentation: ^presentation, clk_id_: uint),
+	clock_id : proc "c" (data: rawptr, presentation: ^presentation, clk_id_: u32),
 
 }
 presentation_add_listener :: proc "contextless" (presentation_: ^presentation, listener: ^presentation_listener, data: rawptr) {
@@ -196,7 +196,7 @@ presentation_feedback_listener :: struct {
         refresh cycle, or the output device is self-refreshing without
         a way to query the refresh count, then the arguments seq_hi
         and seq_lo must be zero. */
-	presented : proc "c" (data: rawptr, presentation_feedback: ^presentation_feedback, tv_sec_hi_: uint, tv_sec_lo_: uint, tv_nsec_: uint, refresh_: uint, seq_hi_: uint, seq_lo_: uint, flags_: presentation_feedback_kind),
+	presented : proc "c" (data: rawptr, presentation_feedback: ^presentation_feedback, tv_sec_hi_: u32, tv_sec_lo_: u32, tv_nsec_: u32, refresh_: u32, seq_hi_: u32, seq_lo_: u32, flags_: presentation_feedback_kind),
 
 /* The content update was never displayed to the user. */
 	discarded : proc "c" (data: rawptr, presentation_feedback: ^presentation_feedback),
