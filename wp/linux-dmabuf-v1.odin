@@ -141,7 +141,7 @@ linux_dmabuf_v1_listener :: struct {
         Starting version 4, the format event is deprecated and must not be
         sent by compositors. Instead, use get_default_feedback or
         get_surface_feedback. */
-	format : proc "c" (data: rawptr, linux_dmabuf_v1: ^linux_dmabuf_v1, format_: uint),
+	format : proc "c" (data: rawptr, linux_dmabuf_v1: ^linux_dmabuf_v1, format_: u32),
 
 /* This event advertises the formats that the server supports, along with
         the modifiers supported for each format. All the supported modifiers
@@ -166,7 +166,7 @@ linux_dmabuf_v1_listener :: struct {
         Starting version 4, the modifier event is deprecated and must not be
         sent by compositors. Instead, use get_default_feedback or
         get_surface_feedback. */
-	modifier : proc "c" (data: rawptr, linux_dmabuf_v1: ^linux_dmabuf_v1, format_: uint, modifier_hi_: uint, modifier_lo_: uint),
+	modifier : proc "c" (data: rawptr, linux_dmabuf_v1: ^linux_dmabuf_v1, format_: u32, modifier_hi_: u32, modifier_lo_: u32),
 
 }
 linux_dmabuf_v1_add_listener :: proc "contextless" (linux_dmabuf_v1_: ^linux_dmabuf_v1, listener: ^linux_dmabuf_v1_listener, data: rawptr) {
@@ -240,7 +240,7 @@ linux_buffer_params_v1_destroy :: proc "contextless" (linux_buffer_params_v1_: ^
         The error PLANE_SET is raised if attempting to set a plane that
         was already set. */
 LINUX_BUFFER_PARAMS_V1_ADD :: 1
-linux_buffer_params_v1_add :: proc "contextless" (linux_buffer_params_v1_: ^linux_buffer_params_v1, fd_: int, plane_idx_: uint, offset_: uint, stride_: uint, modifier_hi_: uint, modifier_lo_: uint) {
+linux_buffer_params_v1_add :: proc "contextless" (linux_buffer_params_v1_: ^linux_buffer_params_v1, fd_: i32, plane_idx_: u32, offset_: u32, stride_: u32, modifier_hi_: u32, modifier_lo_: u32) {
 	proxy_marshal_flags(cast(^proxy)linux_buffer_params_v1_, LINUX_BUFFER_PARAMS_V1_ADD, nil, proxy_get_version(cast(^proxy)linux_buffer_params_v1_), 0, fd_, plane_idx_, offset_, stride_, modifier_hi_, modifier_lo_)
 }
 
@@ -304,7 +304,7 @@ linux_buffer_params_v1_add :: proc "contextless" (linux_buffer_params_v1_: ^linu
         It is not mandatory to issue 'create'. If a client wants to
         cancel the buffer creation, it can just destroy this object. */
 LINUX_BUFFER_PARAMS_V1_CREATE :: 2
-linux_buffer_params_v1_create :: proc "contextless" (linux_buffer_params_v1_: ^linux_buffer_params_v1, width_: int, height_: int, format_: uint, flags_: linux_buffer_params_v1_flags) {
+linux_buffer_params_v1_create :: proc "contextless" (linux_buffer_params_v1_: ^linux_buffer_params_v1, width_: i32, height_: i32, format_: u32, flags_: linux_buffer_params_v1_flags) {
 	proxy_marshal_flags(cast(^proxy)linux_buffer_params_v1_, LINUX_BUFFER_PARAMS_V1_CREATE, nil, proxy_get_version(cast(^proxy)linux_buffer_params_v1_), 0, width_, height_, format_, flags_)
 }
 
@@ -332,7 +332,7 @@ linux_buffer_params_v1_create :: proc "contextless" (linux_buffer_params_v1_: ^l
         This takes the same arguments as a 'create' request, and obeys the
         same restrictions. */
 LINUX_BUFFER_PARAMS_V1_CREATE_IMMED :: 3
-linux_buffer_params_v1_create_immed :: proc "contextless" (linux_buffer_params_v1_: ^linux_buffer_params_v1, width_: int, height_: int, format_: uint, flags_: linux_buffer_params_v1_flags) -> ^wl.buffer {
+linux_buffer_params_v1_create_immed :: proc "contextless" (linux_buffer_params_v1_: ^linux_buffer_params_v1, width_: i32, height_: i32, format_: u32, flags_: linux_buffer_params_v1_flags) -> ^wl.buffer {
 	ret := proxy_marshal_flags(cast(^proxy)linux_buffer_params_v1_, LINUX_BUFFER_PARAMS_V1_CREATE_IMMED, &wl.buffer_interface, proxy_get_version(cast(^proxy)linux_buffer_params_v1_), 0, nil, width_, height_, format_, flags_)
 	return cast(^wl.buffer)ret
 }
@@ -453,7 +453,7 @@ linux_dmabuf_feedback_v1_listener :: struct {
         event has been sent. Instead, compositors must create a new, separate
         table file and re-send feedback parameters. Compositors are allowed to
         store duplicate format + modifier pairs in the table. */
-	format_table : proc "c" (data: rawptr, linux_dmabuf_feedback_v1: ^linux_dmabuf_feedback_v1, fd_: int, size_: uint),
+	format_table : proc "c" (data: rawptr, linux_dmabuf_feedback_v1: ^linux_dmabuf_feedback_v1, fd_: i32, size_: u32),
 
 /* This event advertises the main device that the server prefers to use
         when direct scan-out to the target device isn't possible. The
