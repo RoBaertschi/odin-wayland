@@ -177,6 +177,3 @@ init_interfaces_xdg_decoration_unstable_v1 :: proc "contextless" () {
 	toplevel_decoration_v1_interface.methods = raw_data(toplevel_decoration_v1_requests)
 	toplevel_decoration_v1_interface.events = raw_data(toplevel_decoration_v1_events)
 }
-
-// Functions from libwayland-client
-import wl ".."
