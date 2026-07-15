@@ -343,7 +343,7 @@ linux_buffer_params_v1_listener :: struct {
 
         Upon receiving this event, the client should destroy the
         zwp_linux_buffer_params_v1 object. */
-	created : proc "c" (data: rawptr, linux_buffer_params_v1: ^linux_buffer_params_v1) -> ^wl.buffer,
+	created : proc "c" (data: rawptr, linux_buffer_params_v1: ^linux_buffer_params_v1, buffer_: ^wl.buffer),
 
 /* This event indicates that the attempted buffer creation has
         failed. It usually means that one of the dmabuf constraints

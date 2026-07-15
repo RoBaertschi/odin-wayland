@@ -1078,7 +1078,7 @@ data_device_listener :: struct {
 	following the data_device.data_offer event, the new data_offer
 	object will send out data_offer.offer events to describe the
 	mime types it offers. */
-	data_offer : proc "c" (data: rawptr, data_device: ^data_device) -> ^data_offer,
+	data_offer : proc "c" (data: rawptr, data_device: ^data_device, id_: ^data_offer),
 
 /* This event is sent when an active drag-and-drop pointer enters
 	a surface owned by the client.  The position of the pointer at

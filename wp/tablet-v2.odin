@@ -86,13 +86,13 @@ tablet_seat_v2_listener :: struct {
 	seat. This event only provides the object id of the tablet, any
 	static information about the tablet (device name, vid/pid, etc.) is
 	sent through the wp_tablet interface. */
-	tablet_added : proc "c" (data: rawptr, tablet_seat_v2: ^tablet_seat_v2) -> ^tablet_v2,
+	tablet_added : proc "c" (data: rawptr, tablet_seat_v2: ^tablet_seat_v2, id_: ^tablet_v2),
 
 /* This event is sent whenever a tool that has not previously been used
 	with a tablet comes into use. This event only provides the object id
 	of the tool; any static information about the tool (capabilities,
 	type, etc.) is sent through the wp_tablet_tool interface. */
-	tool_added : proc "c" (data: rawptr, tablet_seat_v2: ^tablet_seat_v2) -> ^tablet_tool_v2,
+	tool_added : proc "c" (data: rawptr, tablet_seat_v2: ^tablet_seat_v2, id_: ^tablet_tool_v2),
 
 /* This event is sent whenever a new pad is known to the system. Typically,
 	pads are physically attached to tablets and a pad_added event is
@@ -104,7 +104,7 @@ tablet_seat_v2_listener :: struct {
 	This event only provides the object id of the pad. All further
 	features (buttons, strips, rings) are sent through the wp_tablet_pad
 	interface. */
-	pad_added : proc "c" (data: rawptr, tablet_seat_v2: ^tablet_seat_v2) -> ^tablet_pad_v2,
+	pad_added : proc "c" (data: rawptr, tablet_seat_v2: ^tablet_seat_v2, id_: ^tablet_pad_v2),
 
 }
 tablet_seat_v2_add_listener :: proc "contextless" (tablet_seat_v2_: ^tablet_seat_v2, listener: ^tablet_seat_v2_listener, data: rawptr) {
@@ -867,14 +867,14 @@ tablet_pad_group_v2_listener :: struct {
 
 	This event is sent in the initial burst of events before the
 	wp_tablet_pad_group.done event. */
-	ring : proc "c" (data: rawptr, tablet_pad_group_v2: ^tablet_pad_group_v2) -> ^tablet_pad_ring_v2,
+	ring : proc "c" (data: rawptr, tablet_pad_group_v2: ^tablet_pad_group_v2, ring_: ^tablet_pad_ring_v2),
 
 /* Sent on wp_tablet_pad initialization to announce available strips.
 	One event is sent for each strip available on this pad group.
 
 	This event is sent in the initial burst of events before the
 	wp_tablet_pad_group.done event. */
-	strip : proc "c" (data: rawptr, tablet_pad_group_v2: ^tablet_pad_group_v2) -> ^tablet_pad_strip_v2,
+	strip : proc "c" (data: rawptr, tablet_pad_group_v2: ^tablet_pad_group_v2, strip_: ^tablet_pad_strip_v2),
 
 /* Sent on wp_tablet_pad_group initialization to announce that the pad
 	group may switch between modes. A client may use a mode to store a
@@ -930,7 +930,7 @@ tablet_pad_group_v2_listener :: struct {
 
 	This event is sent in the initial burst of events before the
 	wp_tablet_pad_group.done event. */
-	dial : proc "c" (data: rawptr, tablet_pad_group_v2: ^tablet_pad_group_v2) -> ^tablet_pad_dial_v2,
+	dial : proc "c" (data: rawptr, tablet_pad_group_v2: ^tablet_pad_group_v2, dial_: ^tablet_pad_dial_v2),
 
 }
 tablet_pad_group_v2_add_listener :: proc "contextless" (tablet_pad_group_v2_: ^tablet_pad_group_v2, listener: ^tablet_pad_group_v2_listener, data: rawptr) {
@@ -1027,7 +1027,7 @@ tablet_pad_v2_listener :: struct {
 
 	This event is sent in the initial burst of events before the
 	wp_tablet_pad.done event. At least one group will be announced. */
-	group : proc "c" (data: rawptr, tablet_pad_v2: ^tablet_pad_v2) -> ^tablet_pad_group_v2,
+	group : proc "c" (data: rawptr, tablet_pad_v2: ^tablet_pad_v2, pad_group_: ^tablet_pad_group_v2),
 
 /* A system-specific device path that indicates which device is behind
 	this wp_tablet_pad. This information may be used to gather additional
